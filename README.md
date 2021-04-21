@@ -5,7 +5,7 @@
 Enables the "-tickrate" switch to be used from the command line to set the game's tickrate.
 
 TODO:
-Patch Grenades/Stickybombs behavior to fix an issue where projectile bounce scaled inversely with tickrate.
+Patch Grenades/Stickybombs behavior to fix an issue where projectile bounce scaled inversely with tickrate.  
 Patch Wrangler behaviour to fix an issue where player-controlled sentry fire speed scaled inversely with tickrate.
 
 ### Instructions
