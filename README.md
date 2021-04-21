@@ -15,7 +15,7 @@ Patch Wrangler behaviour to fix an issue where player-controlled sentry fire spe
 3. Add "-tickrate <desired_tickrate>" to your server's launch parameters. e.g. -tickrate 100
 4. Make sure the following convar settings are properly set in server.cfg or otherwise:
 
-    sv_maxupdaterate 100
+    sv_maxupdaterate 100  
     sv_maxcmdrate 100
 
 5. PROFIT!!!
