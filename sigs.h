@@ -43,8 +43,8 @@
 /* gpGlobals read offsets into CTFWeaponBaseGrenadeProj::VPhysicsUpdate() */
 const int g_FrameTimeReadOffset =
 #if defined (_LINUX)
-	0x13E;
+	0x11E;
 #elif defined (_WIN32)
-	0x13E; // TODO: Change offset
+	0x11E; // TODO: Change offset
 #endif
 #endif // _SIGS_H_
