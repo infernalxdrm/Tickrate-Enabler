@@ -69,11 +69,8 @@ inline bool mov_to_disp32(BYTE * instr)
 {
 	switch(instr[0])
 	{
-	case 0xA1: // standard mov with modrm
-		instr[1] = MODRM_SRC_TO_DISP32(instr[1]);
+	case 0xA1: // direct to eax mov
 		return true;
-	//case 0xA1: // direct to eax mov
-	//	  return true;
 	default: // unsupported or not mov
 		return false;
 	}
