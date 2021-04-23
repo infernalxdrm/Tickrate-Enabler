@@ -69,7 +69,7 @@ inline bool mov_to_disp32(BYTE * instr)
 {
 	switch(instr[0])
 	{
-	case 0x8B: // standard mov with modrm
+	case 0xA1: // standard mov with modrm
 		instr[1] = MODRM_SRC_TO_DISP32(instr[1]);
 		return true;
 	//case 0xA1: // direct to eax mov
@@ -84,8 +84,8 @@ inline int mov_src_operand_offset(BYTE * instr)
 {
 	switch(instr[0])
 	{
-	case 0xF3:
-		return 2;
+	case 0xA1:
+		return 1;
 	default: 
 		return 0;
 	}
