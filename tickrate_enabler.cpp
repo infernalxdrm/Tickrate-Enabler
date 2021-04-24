@@ -74,7 +74,7 @@ SH_DECL_HOOK0(IServerGameDLL, GetTickInterval, const, 0, float);
 
 float GetTickInterval()
 {
-	float tickinterval = (1.0f / 30.0f);
+	float tickinterval = (1.0f / 66.0f);
 
 	if ( CommandLine()->CheckParm( "-tickrate" ) )
 	{
