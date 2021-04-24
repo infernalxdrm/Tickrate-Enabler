@@ -35,7 +35,7 @@
 #include <basetypes.h>
 
 // 5 bytes instruction + 1 to make sure i dont fuck up
-#define MAX_MOV_INSTR_LEN 6
+#define MAX_MOV_INSTR_LEN 5
 #define JMP_8_INSTR_LEN 2
 #define MOV_R32_R32_INSTR_LEN 2
 
