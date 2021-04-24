@@ -100,7 +100,7 @@ float GetTickInterval()
 IServerGameDLL *gamedll = NULL;
 IVEngineServer *engine = NULL;
 
-ICvar * g_pCvar = NULL;
+//ICvar * g_pCvar = NULL;
 
 //---------------------------------------------------------------------------------
 // Purpose: called when the plugin is loaded, load the interface we need from the engine
@@ -139,12 +139,12 @@ bool TF2TickRate::Load(	CreateInterfaceFn interfaceFactory, CreateInterfaceFn ga
 		return false;
 	}
 
-	g_pCvar = reinterpret_cast<ICvar *>(interfaceFactory(CVAR_INTERFACE_VERSION,NULL));
-	if(g_pCvar == NULL)
-	{
-		Error("RecordingHelpers: Failed to get Cvar interface.\n");
-		return false;
-	}
+	//g_pCvar = reinterpret_cast<ICvar *>(interfaceFactory(CVAR_INTERFACE_VERSION,NULL));
+	//if(g_pCvar == NULL)
+	//{
+	//	Error("RecordingHelpers: Failed to get Cvar interface.\n");
+	//	return false;
+	//}
 	
 	return true;
 }
