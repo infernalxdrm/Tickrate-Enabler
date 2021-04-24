@@ -45,16 +45,6 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-#ifdef _DEBUG
-#define VDEBUG "-dev"
-#else
-#define VDEBUG ""
-#endif
-#define VERSION_L4D "1.4"
-#define VERSION_L4D2 "1.4"
-#define VERSION VERSION_L4D2 VDEBUG
-
-//
 TF2TickRate g_TF2TickRatePlugin;
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR(TF2TickRate, IServerPluginCallbacks, INTERFACEVERSION_ISERVERPLUGINCALLBACKS, g_TF2TickRatePlugin );
 
