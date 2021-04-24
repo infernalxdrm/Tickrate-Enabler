@@ -38,7 +38,7 @@ struct fakeGlobals {
 	float frametime;
 };
 
-fakeGlobals g_FakeGlobals = { {0.0, 0.0, 0.0, 0.0}, 0.015151515 };
+fakeGlobals g_FakeGlobals = { {0.0, 0.0, 0.0, 0.0}, 0.033333333 };
 fakeGlobals *gp_FakeGlobals = &g_FakeGlobals;
 
 PipeBombFrameTimePatch::PipeBombFrameTimePatch(IServerGameDLL * gamedll)
