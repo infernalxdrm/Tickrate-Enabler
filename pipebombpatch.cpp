@@ -40,7 +40,6 @@ struct fakeGlobals {
 
 fakeGlobals g_FakeGlobals = { {0.0, 0.0, 0.0, 0.0}, 0.015151515 };
 fakeGlobals *gp_FakeGlobals = &g_FakeGlobals;
-fakeGlobals **gpp_FakeGlobals = &gp_FakeGlobals; // what a fucking joke
 
 PipeBombFrameTimePatch::PipeBombFrameTimePatch(IServerGameDLL * gamedll)
 {
@@ -93,7 +92,7 @@ void PipeBombFrameTimePatch::InitializeBinPatches(IServerGameDLL * gamedll)
 	mov_to_disp32(instr_buf);
 
 	// Plug in our super cool immediate address.
-	*(fakeGlobals ****)(instr_buf + offs) = &gpp_FakeGlobals;
+	*(fakeGlobals ***)(instr_buf + offs) = &gp_FakeGlobals;
 	
 	// Generate BasicBinPatch
 	m_patches.Register(new BasicStaticBinPatch<MAX_MOV_INSTR_LEN>(pTarget, instr_buf));
