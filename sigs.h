@@ -35,16 +35,21 @@
 
 /* CTFWeaponBaseGrenadeProj::VPhysicsUpdate() function finding */
 #define LIN_VPhysicsUpdate_SYMBOL "_ZN24CTFWeaponBaseGrenadeProj14VPhysicsUpdateEP14IPhysicsObject"
-/*TODO: Find sig for Windows*/
+/* CTFWeaponBaseGrenadeProj::ResolveFlyCollisionCustom() function finding */
+#define LIN_ResolveFlyCollisionCustom_SYMBOL "_ZN24CTFWeaponBaseGrenadeProj25ResolveFlyCollisionCustomER10CGameTraceR6Vector"
+
+/* TODO: Find sigs for Windows */
 #define WIN_VPhysicsUpdate_SIG "\x55\x8B\xEC\x81\xEC\x2A\x2A\x2A\x2A\xA1\x2A\x2A\x2A\x2A\x33\xC5\x89\x45\xFC\x53\x56\x57\x8B\xF9\x8B\x87\x2A\x2A\x2A\x2A\x83"
 #define WIN_VPhysicsUpdate_SIGLEN 31
 
+#define WIN_ResolveFlyCollisionCustom_SIG "\x55\x8B\xEC\x81\xEC\x2A\x2A\x2A\x2A\xA1\x2A\x2A\x2A\x2A\x33\xC5\x89\x45\xFC\x53\x56\x57\x8B\xF9\x8B\x87\x2A\x2A\x2A\x2A\x83"
+#define WIN_ResolveFlyCollisionCustom_SIGLEN 31
 
-/* gpGlobals read offsets into CTFWeaponBaseGrenadeProj::VPhysicsUpdate() */
-const int g_FrameTimeReadOffset =
+/* gpGlobals read offsets into CTFWeaponBaseGrenadeProj::VPhysicsUpdate() and CTFWeaponBaseGrenadeProj::ResolveFlyCollisionCustom()*/
+const int g_FrameTimeReadOffsets[] =
 #if defined (_LINUX)
-	0x11E;
+	{0x11E, 0x290, 0x339};
 #elif defined (_WIN32)
-	0x11E; // TODO: Change offset
+	{0x11E, 0x290, 0x339}; // TODO: Change offset
 #endif
 #endif // _SIGS_H_

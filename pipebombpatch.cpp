@@ -63,29 +63,44 @@ void PipeBombFrameTimePatch::Unpatch()
 
 void PipeBombFrameTimePatch::InitializeBinPatches(IServerGameDLL * gamedll)
 {
-	BYTE instr_buf[MAX_MOV_INSTR_LEN];
-
-	BYTE * pVPhysicsUpdate = FindVPhysicsUpdate(static_cast<void *>(gamedll));
+#if defined (_LINUX)
+	BYTE * pVPhysicsUpdate = FindSignature(static_cast<void *>(gamedll), LIN_VPhysicsUpdate_SYMBOL);
 	DevMsg("VPhysicsUpdate at 0x%08x\n", pVPhysicsUpdate);
-
+	BYTE *pResolveFlyCollisionCustom = FindSignature(static_cast<void *>(gamedll), LIN_ResolveFlyCollisionCustom_SYMBOL);
+	DevMsg("ResolveFlyCollisionCustom at 0x%08x\n", pResolveFlyCollisionCustom);
+#elif defined (_WIN32)
+	BYTE * pVPhysicsUpdate = FindSignature(static_cast<void *>(gamedll), WIN_VPhysicsUpdate_SIG, WIN_VPhysicsUpdate_SIGLEN);
+	DevMsg("VPhysicsUpdate at 0x%08x\n", pVPhysicsUpdate);
+	BYTE *pResolveFlyCollisionCustom = FindSignature(static_cast<void *>(gamedll), WIN_ResolveFlyCollisionCustom_SIG, WIN_ResolveFlyCollisionCustom_SIGLEN);
+	DevMsg("ResolveFlyCollisionCustom at 0x%08x\n", pResolveFlyCollisionCustom);
+#endif
 	if(!pVPhysicsUpdate)
 	{
 		throw PatchException("Couldn't find CTFWeaponBaseGrenadeProj::VPhysicsUpdate() in server memory.");
 	}
-
+	else if(!pResolveFlyCollisionCustom)
+	{
+		throw PatchException("Couldn't find CTFWeaponBaseGrenadeProj::ResolveFlyCollisionCustom() in server memory.");
+	}
 	DevMsg("Setting up patch for frametime read (offs:0x%x).\n", g_FrameTimeReadOffset);
+	FrameTimeOverride(pVPhysicsUpdate);
+	FrameTimeOverride(pResolveFlyCollisionCustom);
+	FrameTimeOverride(pResolveFlyCollisionCustom);
+}
 
+void PipeBombFrameTimePatch::FrameTimeOverride(BYTE* pFunction)
+{
+	BYTE instr_buf[MAX_MOV_INSTR_LEN];
 	// Calculate offset target
-	BYTE * pTarget = pVPhysicsUpdate + g_FrameTimeReadOffset;
-
+	BYTE * pTarget = pFunction + g_FrameTimeReadOffsets[FrameTimeNumCounter];
+	FrameTimeNumCounter++;
 	int offs = mov_src_operand_offset(pTarget); // Find offset of disp32 in this particular mov instruction
 	if(offs == 0)
 	{
 		// Throw an exception if we can't identify this offset (unexpected instruction!)
 		// TODO: More useful exception here.
-		throw PatchException("CTFWeaponBaseGrenadeProj::VPhysicsUpdate() Patch Offset incorrect.");
+		throw PatchException("Function Patch Offset incorrect.");
 	}
-
 	memcpy(instr_buf, pTarget, MAX_MOV_INSTR_LEN);
 
 	// make this instruction read from an immediate address
@@ -98,11 +113,12 @@ void PipeBombFrameTimePatch::InitializeBinPatches(IServerGameDLL * gamedll)
 	m_patches.Register(new BasicStaticBinPatch<MAX_MOV_INSTR_LEN>(pTarget, instr_buf));
 }
 
-BYTE * PipeBombFrameTimePatch::FindVPhysicsUpdate(void * gamedll)
+BYTE * PipeBombFrameTimePatch::FindSignature(void* gamedll, const char* sig, int len = 0)
 {
 #if defined (_LINUX)
-	return (BYTE *)g_MemUtils.SimpleResolve(gamedll, LIN_VPhysicsUpdate_SYMBOL);
+	return (BYTE *)g_MemUtils.SimpleResolve(gamedll, sig);
 #elif defined (_WIN32)
-	return (BYTE*)g_MemUtils.FindLibPattern(gamedll, WIN_VPhysicsUpdate_SIG, WIN_VPhysicsUpdate_SIGLEN);
+	if(len > 0) return (BYTE*)g_MemUtils.FindLibPattern(gamedll, sig, len);
+	else return nullptr;
 #endif
 }
