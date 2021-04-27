@@ -45,11 +45,11 @@ public:
 	~PipeBombFrameTimePatch();
 	void Patch();
 	void Unpatch();
+	static int FrameTimeNumCounter;
 private:
 	void InitializeBinPatches(IServerGameDLL * gamedll);
 	BYTE * FindSignature(void* gamedll, const char* sig, int len = 0);
 	void FrameTimeOverride(BYTE* pFunction);
 	PatchManager m_patches;
-	static int FrameTimeNumCounter;
 };
 #endif 
