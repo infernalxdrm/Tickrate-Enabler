@@ -52,8 +52,4 @@ private:
 	PatchManager m_patches;
 	static int FrameTimeNumCounter = 0;
 };
-
-// Deprecated
-//bool PatchBoomerVomit(IServerGameDLL * gamedll);
-
-#endif
+#endif 

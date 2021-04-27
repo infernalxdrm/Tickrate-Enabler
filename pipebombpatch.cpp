@@ -82,7 +82,6 @@ void PipeBombFrameTimePatch::InitializeBinPatches(IServerGameDLL * gamedll)
 	{
 		throw PatchException("Couldn't find CTFWeaponBaseGrenadeProj::ResolveFlyCollisionCustom() in server memory.");
 	}
-	DevMsg("Setting up patch for frametime read (offs:0x%x).\n", g_FrameTimeReadOffset);
 	FrameTimeOverride(pVPhysicsUpdate);
 	FrameTimeOverride(pResolveFlyCollisionCustom);
 	FrameTimeOverride(pResolveFlyCollisionCustom);
@@ -90,6 +89,7 @@ void PipeBombFrameTimePatch::InitializeBinPatches(IServerGameDLL * gamedll)
 
 void PipeBombFrameTimePatch::FrameTimeOverride(BYTE* pFunction)
 {
+	DevMsg("Setting up patch for frametime read (offs:0x%x).\n", g_FrameTimeReadOffsets[FrameTimeNumCounter]);
 	BYTE instr_buf[MAX_MOV_INSTR_LEN];
 	// Calculate offset target
 	BYTE * pTarget = pFunction + g_FrameTimeReadOffsets[FrameTimeNumCounter];
