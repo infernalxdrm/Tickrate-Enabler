@@ -40,6 +40,7 @@ struct fakeGlobals {
 
 fakeGlobals g_FakeGlobals = { {0.0, 0.0, 0.0, 0.0}, 0.015151515 };
 fakeGlobals *gp_FakeGlobals = &g_FakeGlobals;
+FrameTimeNumCounter = 0;
 
 PipeBombFrameTimePatch::PipeBombFrameTimePatch(IServerGameDLL * gamedll)
 {
@@ -113,7 +114,7 @@ void PipeBombFrameTimePatch::FrameTimeOverride(BYTE* pFunction)
 	m_patches.Register(new BasicStaticBinPatch<MAX_MOV_INSTR_LEN>(pTarget, instr_buf));
 }
 
-BYTE * PipeBombFrameTimePatch::FindSignature(void* gamedll, const char* sig, int len = 0)
+BYTE * PipeBombFrameTimePatch::FindSignature(void* gamedll, const char* sig, int len)
 {
 #if defined (_LINUX)
 	return (BYTE *)g_MemUtils.SimpleResolve(gamedll, sig);
