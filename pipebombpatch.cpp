@@ -40,7 +40,7 @@ struct fakeGlobals {
 
 fakeGlobals g_FakeGlobals = { {0.0, 0.0, 0.0, 0.0}, 0.015151515 };
 fakeGlobals *gp_FakeGlobals = &g_FakeGlobals;
-static int PipeBombFrameTimePatch::FrameTimeNumCounter = 0;
+int PipeBombFrameTimePatch::FrameTimeNumCounter = 0;
 
 PipeBombFrameTimePatch::PipeBombFrameTimePatch(IServerGameDLL * gamedll)
 {
