@@ -45,7 +45,7 @@ public:
 	~PipeBombFrameTimePatch();
 	void Patch();
 	void Unpatch();
-	static int FrameTimeNumCounter;
+	int FrameTimeNumCounter = 0;
 private:
 	void InitializeBinPatches(IServerGameDLL * gamedll);
 	BYTE * FindSignature(void* gamedll, const char* sig, int len = 0);
