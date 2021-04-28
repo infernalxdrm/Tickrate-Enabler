@@ -112,6 +112,13 @@ void PipeBombFrameTimePatch::FrameTimeOverride(BYTE* pFunction)
 	
 	// Generate BasicBinPatch
 	m_patches.Register(new BasicStaticBinPatch<MAX_MOV_INSTR_LEN>(pTarget, instr_buf));
+	
+	//just for debugging and shit
+	DevMsg("\nPatched instructions: ");
+	for (int i=0; i<MAX_MOV_INSTR_LEN; i++)
+	{
+		DevMsg("%x ", pTarget[i]);
+	}
 }
 
 BYTE * PipeBombFrameTimePatch::FindSignature(void* gamedll, const char* sig, int len)

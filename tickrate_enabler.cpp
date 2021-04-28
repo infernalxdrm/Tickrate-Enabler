@@ -113,8 +113,8 @@ bool TF2TickRate::Load(	CreateInterfaceFn interfaceFactory, CreateInterfaceFn ga
 	}
 
 
-	Msg("Tickrate_Enabler: Found ServerGameDLL");
-	Msg("Tickrate_Enabler: Found VEngineServer");
+	Msg("Tickrate_Enabler: Found ServerGameDLL at 0x%08x\n", gamedll);
+	Msg("Tickrate_Enabler: Found VEngineServer at 0x%08x\n", engine);
 
 	SH_ADD_HOOK(IServerGameDLL, GetTickInterval, gamedll, SH_STATIC(GetTickInterval), false);
 
